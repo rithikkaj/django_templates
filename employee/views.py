@@ -223,7 +223,7 @@ def emp(request):
 
 def edit(request, id):  
     employee = Employee.objects.get(id=id)  #asdsx
-    return render(request,'edit.html', {'employee':employee})  
+    return render(request,'edit.html', {'employee':employee})  # thudds here
 
 def update(request, id):
     employee = Employee.objects.get(id=id)
