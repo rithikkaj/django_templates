@@ -1,0 +1,147 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Show</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  </head>
+  <body>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <a class="navbar-brand" href="#">
+            
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="#"> <span class="sr-only"></span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#"></a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="#"></a>
+                  <a class="dropdown-item" href="#"></a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#"></a>
+                </div>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link disabled" href="#"></a>
+              </li>
+            </ul>
+            <div class="d-flex justify-content-between">
+                {% if request.user.is_authenticated  %}
+            <p class="me-2">{{request.user}}</p>
+            
+            <p class="me-2">  <a href="{% url 'employee:user_logout'%} "><button class="btn btn-primary" >Logout</button></a></p>
+            {% else %}
+            <a href="{% url 'employee:user_login' %}">Login</a>
+            {% endif %}
+            </div>
+            
+          </div>
+          
+          <p class="me-2"> <a href="{% url 'employee:export_to_excel' %}"><button class="btn btn-dark" >Export to Excel</button></a></p>
+          <p class="me-2"> <a href="{% url 'employee:export_csv' %}"><button class="btn btn-warning" >Export to CSV</button></a></p>
+        </nav>
+    <div class =" container-fluid mt-5">
+    <div class='mb2'>
+    <a href="/emp" class="btn btn-primary float-end">Add New Record</a>
+</div>
+
+        <table class="table table-striped table-sm"  class="table mt2">
+            <thead class="thead-dark">
+                <tr>
+                  <th>Number</th>
+                    <th scope="col">Employee Id</th>
+                    <th scope="col">Employee Image</th>
+                    <th scope="col">Employee Name</th>
+                    <th scope="col">Employee Email</th>
+                    <th scope="col">Employee Phone</th>
+                    <th scope="col">Employee Age</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for employee in employees %}
+                    <tr>
+                      <td>{{ forloop.counter }}</td>
+                        <td>{{ employee.eid }}</td>
+                        <td>
+                            {% if employee.eimage %}
+                            <img src="{{employee.eimage.url }}" height="100px" width="100px">
+                            {% else %}
+                            <!-- <img text = "No Image" > -->
+                            {% endif %}
+                        </td>
+                        <td>{{ employee.ename }}</td>
+                        <td>{{ employee.eemail }}</td>
+                        <td>{{ employee.ephone }}</td>
+                        <td>{{ employee.eage }}</td>
+                        <td>
+                          <a href="/employee/{{ employee.id }}/edit"> <button class="btn btn-primary" >Edit</button></a>
+                            <a href="/employee/{{ employee.id }}/delete"  onclick="return confirm('Are you sure you want to delete this?')"><button class="btn btn-warning" >Delete</button></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                </table>
+                <br>
+                <br>
+                
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination">
+                      {% if employees.has_previous %}
+                          <li class="page-item">
+                              <a class="page-link" href="?page=1" aria-label="First">
+                                  <span aria-hidden="true">&laquo;&laquo;</span>
+                              </a>
+                          </li>
+                          <li class="page-item">
+                              <a class="page-link" href="?page={{ employees.previous_page_number }}" aria-label="Previous">
+                                  <span aria-hidden="true">&laquo;</span>
+                              </a>
+                          </li>
+                      {% endif %}
+              
+                      {% for page_num in employees.paginator.page_range %}
+                          <li class="page-item {% if page_num == employees.number %}active{% endif %}">
+                              <a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a>
+                          </li>
+                      {% endfor %}
+              
+                      {% if employees.has_next %}
+                          <li class="page-item">
+                              <a class="page-link" href="?page={{ employees.next_page_number }}" aria-label="Next">
+                                  <span aria-hidden="true">&raquo;</span>
+                              </a>
+                          </li>
+                          <li class="page-item">
+                              <a class="page-link" href="?page={{ employees.paginator.num_pages }}" aria-label="Last">
+                                  <span aria-hidden="true">&raquo;&raquo;</span>
+                              </a>
+                          </li>
+                      {% endif %}
+                  </ul>
+              </nav>
+    </div>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+                <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+                <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+            </body>
+          </html>
+              

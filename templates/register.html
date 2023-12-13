@@ -1,0 +1,256 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        :root {
+            --input-height: 35px;
+          }
+          
+          body {
+            margin: 0px;
+            font-family: "Rubik";
+          }
+          
+          @font-face {
+            font-family: Rubik;
+            src: url(/Rubik.ttf);
+          }
+          
+          .LoginContainer {
+            width: 400px;
+          }
+          
+          .MainContainer {
+            height: calc(100vh - 40px);
+            width: calc(100vw - 40px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+          }
+          
+          .CompanyContainer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-bottom: 10px;
+          }
+          
+          .CompanyLogoConatiner {
+            padding-right: 10px;
+          }
+          
+          .CompanyLogoImg {
+            height: 60px;
+          }
+          
+          .CompanyName {
+            font-size: 30px;
+            font-weight: bolder;
+          }
+          
+          .LoginHeaderTitle {
+            font-size: 25px;
+            padding-bottom: 5px;
+            font-weight: bold;
+          }
+          
+          .FormContainer {
+            padding-top: 20px;
+            padding-bottom: 20px;
+            height: max-content;
+          }
+          
+          .FormContainer .InputContainer {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            height: max-content;
+          }
+          
+          .InputContainer .label {
+            display: block;
+            font-weight: bold;
+            padding-bottom: 5px;
+          }
+          
+          .InputContainer .input {
+            width: calc(100% - 6px);
+            line-height: var(--input-height);
+            font-size: large;
+            border-radius: 5px;
+            border: 1px solid grey;
+          }
+          
+          .InputContainer .PasswordInputContainer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            margin: 0px;
+          }
+          
+          .InputContainer .PasswordInputContainer .input {
+            width: 90%;
+            border-top-right-radius: 0px;
+            border-bottom-right-radius: 0px;
+            border-right: 0px;
+          }
+          
+          .InputContainer .PasswordInputContainer .ShowPasswordButton {
+            cursor: pointer;
+            width: 10%;
+            height: calc(var(--input-height) + 4px);
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+            border: 1px solid grey;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            border-left: 0px;
+          }
+          
+          .InputContainer .PasswordInputContainer .ShowPasswordButton:hover svg {
+            fill: black;
+          }
+          
+          .InputContainer .PasswordLabel {
+            font-weight: bold;
+            color: gray;
+            font-size: 13px;
+            padding-top: 5px;
+          }
+          
+          .InputContainer.RememberForgotContainer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+          }
+          
+          .InputContainer .CheckboxInput {
+            margin: 0px;
+            width: 18px;
+            height: 18px;
+          }
+          
+          .ForgotPasswordContainer {
+            color: red;
+            cursor: pointer;
+          }
+          
+          .ButtonsContainer .SignInButtonContainer .SigninButton:hover {
+            background-color: #2863b4;
+          }
+          
+          .ButtonsContainer .SignInButtonContainer .SigninButton {
+            width: 100%;
+            background-color: #2d70ce;
+            color: white;
+            border-radius: 10px;
+            border: 0px;
+            padding: 10px;
+            font-size: 20px;
+            cursor: pointer;
+          }
+          
+          .ButtonsContainer .OthersButtonContainer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 10px;
+          }
+          
+          .ButtonsContainer .OthersButtonContainer button {
+            width: 48%;
+            font-size: 15px;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 7px;
+            border: 0px;
+          }
+          
+          .FooterContainer {
+            padding-top: 30px;
+            text-align: center;
+          }
+          
+          .SignUpLink {
+            color: #2d70ce;
+            cursor: pointer;
+          }
+          
+    </style>
+</head>
+<body>
+    <div class="container ">
+        <div class="row">
+            <form action="{% url 'employee:user_register' %}" method="post">
+                {% csrf_token %}
+                <section class="MainContainer">
+                    <section class="LoginContainer">
+                    <section class="CompanyContainer">
+                        <div class="CompanyName">
+                        REGISTER PAGE
+                        </div>
+                    </section>
+                    <section class="LoginHeaderContainer">
+                        
+                        <div class="ForgotPasswordContainer">
+                        {{error_message}}
+                        </div>
+                    </section>
+                    <section class="FormContainer">
+                        <div class="InputContainer">
+                        <label class="label">Email Address*</label>
+                        <input class="input" type="email" name="username" required />
+                        </div>
+                        <div class="InputContainer">
+                        <label class="label">Password*</label>
+                        <div class="PasswordInputContainer">
+                            <input class="input" type="password" name="password"required />
+                            <button class="ShowPasswordButton">
+                            <svg fill="grey" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 512 512">
+                                <g>
+                                <path d="m494.8,241.4l-50.6-49.4c-50.1-48.9-116.9-75.8-188.2-75.8s-138.1,26.9-188.2,75.8l-50.6,49.4c-11.3,12.3-4.3,25.4 0,29.2l50.6,49.4c50.1,48.9 116.9,75.8 188.2,75.8s138.1-26.9 188.2-75.8l50.6-49.4c4-3.8 11.7-16.4 0-29.2zm-238.8,84.4c-38.5,0-69.8-31.3-69.8-69.8 0-38.5 31.3-69.8 69.8-69.8 38.5,0 69.8,31.3 69.8,69.8 0,38.5-31.3,69.8-69.8,69.8zm-195.3-69.8l35.7-34.8c27-26.4 59.8-45.2 95.7-55.4-28.2,20.1-46.6,53-46.6,90.1 0,37.1 18.4,70.1 46.6,90.1-35.9-10.2-68.7-29-95.7-55.3l-35.7-34.7zm355,34.8c-27,26.3-59.8,45.1-95.7,55.3 28.2-20.1 46.6-53 46.6-90.1 0-37.2-18.4-70.1-46.6-90.1 35.9,10.2 68.7,29 95.7,55.4l35.6,34.8-35.6,34.7z" />
+                                </g>
+                            </svg>
+                            </button>
+                        </div>
+                        <label class="PasswordLabel">Must be 8 characters at least</label>
+                        </div>
+                        <div class="InputContainer RememberForgotContainer">
+                        <div class="RememberMeContainer">
+                            <input type="checkbox" class="CheckboxInput">
+                            <label style="padding-left: 5px;"><b>Remember me</b></label>
+                        </div>
+                        <div class="ForgotPasswordContainer"><a>Forgot Password?</a></div>
+                        </div>
+                    </section>
+                    <section class="ButtonsContainer">
+                      <div class="SignInButtonContainer">
+                      <button class="SigninButton" type="submit">Register</button>
+                      </div>
+                  </section>
+                        
+                          
+                        
+                  
+                    <section class="FooterContainer">
+                        Do have an account yet? <a href="{% url 'employee:user_login'%}">Login!</a>
+                    </section>
+                    </section>
+              </section>
+            </form>
+        </div>
+    </div>
+
+
+
+</body>
+</html>

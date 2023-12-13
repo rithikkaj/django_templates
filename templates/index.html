@@ -1,0 +1,89 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Index</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous">
+  </head>
+  <body>
+    <form method="post" action="{% url 'employee:emp' %}" enctype="multipart/form-data">
+      {% csrf_token %}
+
+        <br>
+        <div class="container">
+          <br>
+          <div class="form-group row">
+            <div class="col-sm-1 col-form-label"></label>
+            <div class="col-sm-4">
+              <h3>Enter Details</h3>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Employee Image</label>
+            <div class="col-sm-4">
+              <input type="file" name="eimage" id="eimage" 
+                maxlength="100" />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Employee Id</label>
+            <div class="col-sm-4">
+              <input type="text" name="eid" id="id_eid" required maxlength="20"
+                value="{{ request.POST.eid }}" />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Employee Name</label>
+            <div class="col-sm-4">
+              <input type="text" name="ename" id="id_ename" required
+                maxlength="100" value="{{request.POST.ename }}" />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Employee Email:</label>
+            <div class="col-sm-4">
+              <input type="text" name="eemail" id="id_eemail" required
+                maxlength="254" value="{{ request.POST.eemail }}" />
+              {% if form.errors.eemail %}
+              <small class="text-danger">{{ form.errors.eemail }}</small>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Employee Phone</label>
+            <div class="col-sm-4">
+              <input type="text" name="ephone" id="id_ephone" required
+                maxlength="10" value="{{ request.POST.ephone }}" />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Employee Age</label>
+            <div class="col-sm-4">
+              <input type="text" name="eage" id="id_eage" required
+                maxlength="20" value="{{request.POST.eage }}" />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-sm-1 col-form-label"></label>
+            <div class="col-sm-4">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </div>
+
+        </div>
+      </form>
+    </body>
+  </html>
