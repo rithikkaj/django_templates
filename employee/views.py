@@ -222,7 +222,7 @@ def emp(request):
 #     return render(request, "home.html", {'employee_page': employee_page})
 
 def edit(request, id):  
-    employee = Employee.objects.get(id=id)  
+    employee = Employee.objects.get(id=id)  #asdsx
     return render(request,'edit.html', {'employee':employee})  
 
 def update(request, id):
