@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django import forms
 from employee.apps import EmployeeConfig
 from employee.forms import EmployeeForm
-from django.http import HttpResponse
+from django.http import HttpResponse,JsonResponse
 from openpyxl import Workbook
 from employee.models import Employee
 from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
@@ -21,11 +21,47 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.shortcuts import render
 from employee.models import Employee
+import io, csv
+from django.views import View
+
+
+
+
+class EmployeeUploadView(View):
+    def get(self, request):
+        template_name = 'importemployee.html'
+        return render(request, template_name)
+
+    def post(self, request):
+        user = request.user  # get the current login user details
+        paramFile = io.TextIOWrapper(request.FILES['employeefile'].file)
+        portfolio1 = csv.DictReader(paramFile)
+        list_of_dict = list(portfolio1)
+        objs = [
+            Employee(
+                eid=row['eid'],
+                ename=row['ename'],
+                email=row['email'],
+                ephone=row['ephone'],
+                eage=row['eage']
+            )
+            for row in list_of_dict
+        ]
+        try:
+            msg = Employee.objects.bulk_create(objs)
+            returnmsg = {"status_code": 200}
+            print('imported successfully')
+        except Exception as e:
+            print('Error While Importing Data: ', e)
+            returnmsg = {"status_code": 500}
+
+        return JsonResponse(returnmsg)
 
 
 
 def bulk_create_from_data(request):
     employee = [
+        {'eid':'1','ename':'kohn','eemail': 'kohn@example.com','ephone':'7856396311','eage':'24'},
         {'eid': '5', 'ename': 'John Doe', 'eemail': 'john@example.com', 'ephone': '1234567890', 'eage': 30},
         {'eid': '22', 'ename': 'Jane Doe', 'eemail': 'jane@example.com', 'ephone': '9876543210', 'eage': 25},
         {'eid': '8', 'ename': 'Jon', 'eemail': 'jon@example.com', 'ephone': '852741963322', 'eage':24 },
@@ -217,13 +253,13 @@ def emp(request):
 #         employee_page = paginator.page(1)
 #     except EmptyPage:
 #         # If the page is out of range, deliver the last page
-#         employee_page = paginator.page(paginator.num_pages)
+#         employee_page= paginator.page(paginator.num_pages)
 
 #     return render(request, "home.html", {'employee_page': employee_page})
 
 def edit(request, id):  
-    employee = Employee.objects.get(id=id)  #asdsx
-    return render(request,'edit.html', {'employee':employee})  # thudds here
+    employee = Employee.objects.get(id=id)  #asd
+    return render(request,'edit.html', {'employee':employee})  
 
 def update(request, id):
     employee = Employee.objects.get(id=id)
