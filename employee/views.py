@@ -62,15 +62,15 @@ class EmployeeUploadView(View):
 def bulk_create_from_data(request):
     employee = [
         {'eid':'1','ename':'kohn','eemail': 'kohn@example.com','ephone':'7856396311','eage':'24'},
-        {'eid': '5', 'ename': 'John Doe', 'eemail': 'john@example.com', 'ephone': '1234567890', 'eage': 30},
-        {'eid': '22', 'ename': 'Jane Doe', 'eemail': 'jane@example.com', 'ephone': '9876543210', 'eage': 25},
-        {'eid': '8', 'ename': 'Jon', 'eemail': 'jon@example.com', 'ephone': '852741963322', 'eage':24 },
-        {'eid': '28', 'ename': 'Joan', 'eemail': 'jofv bn@example.com', 'ephone': '8627419689322', 'eage':21 },
-        {'eid': '38', 'ename': 'ton', 'eemail': 'jodcvn@example.com', 'ephone': '852741963322', 'eage':24 },        
-        {'eid': '48', 'ename': 'Non', 'eemail': 'josedn@example.com', 'ephone': '852741963722', 'eage':24 },
+        {'eid': '5', 'ename': 'John Doe', 'eemail': 'john@example.com', 'ephone': '1234590', 'eage': 30},
+        {'eid': '22', 'ename': 'Jane', 'eemail': 'jne@example.com', 'ephone': '98743210', 'eage': 75},
+        {'eid': '8', 'ename': 'Jon', 'eemail': 'jon@example.com', 'ephone': '8527419622', 'eage':44 },
+        {'eid': '28', 'ename': 'Joan', 'eemail': 'jofv bn@example.com', 'ephone': '8627419322', 'eage':21 },
+        {'eid': '38', 'ename': 'ton', 'eemail': 'jodcvn@example.com', 'ephone': '85274192', 'eage':24 },        
+        {'eid': '48', 'ename': 'Non', 'eemail': 'josedn@example.com', 'ephone': '8741963722', 'eage':24 },
         {'eid': '18', 'ename': 'Oon', 'eemail': 'jodsn@example.com', 'ephone': '852741963342', 'eage':24 },
-        {'eid': '2', 'ename': 'pan', 'eemail': 'jodn@example.com', 'ephone': '8527419675322', 'eage':24 },
-        {'eid': '27', 'ename': 'pan', 'eemail': 'joasdfgdn@example.com', 'ephone': '852741956252675322', 'eage':24 },
+        {'eid': '2', 'ename': 'pan', 'eemail': 'jodn@examp0le.com', 'ephone': '89675322', 'eage':24 },
+        {'eid': '27', 'ename': 'pan', 'eemail': 'joasdfgdn@example.com', 'ephone': '252675322', 'eage':24 },
      ]
     employees_to_create = [Employee(**data) for data in employee]
     print ('Employees to create', employees_to_create)
@@ -295,7 +295,7 @@ def destroy(request, id):
 def landing(request):
     if not request.user.is_authenticated:
         return redirect('employee:user_login')
-    employees = Employee.objects.all()
+    employees = Employee.objects.order_by('id').all()
     print(employees.count())
     paginator = Paginator(employees, per_page=10)
     page = request.GET.get('page')
