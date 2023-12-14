@@ -61,16 +61,16 @@ class EmployeeUploadView(View):
 
 def bulk_create_from_data(request):
     employee = [
-        {'eid':'1','ename':'kohn','eemail': 'kohn@example.com','ephone':'7856396311','eage':'24'},
-        {'eid': '5', 'ename': 'John Doe', 'eemail': 'john@example.com', 'ephone': '1234590', 'eage': 30},
-        {'eid': '22', 'ename': 'Jane', 'eemail': 'jne@example.com', 'ephone': '98743210', 'eage': 75},
-        {'eid': '8', 'ename': 'Jon', 'eemail': 'jon@example.com', 'ephone': '8527419622', 'eage':44 },
-        {'eid': '28', 'ename': 'Joan', 'eemail': 'jofv bn@example.com', 'ephone': '8627419322', 'eage':21 },
-        {'eid': '38', 'ename': 'ton', 'eemail': 'jodcvn@example.com', 'ephone': '85274192', 'eage':24 },        
-        {'eid': '48', 'ename': 'Non', 'eemail': 'josedn@example.com', 'ephone': '8741963722', 'eage':24 },
-        {'eid': '18', 'ename': 'Oon', 'eemail': 'jodsn@example.com', 'ephone': '852741963342', 'eage':24 },
-        {'eid': '2', 'ename': 'pan', 'eemail': 'jodn@examp0le.com', 'ephone': '89675322', 'eage':24 },
-        {'eid': '27', 'ename': 'pan', 'eemail': 'joasdfgdn@example.com', 'ephone': '252675322', 'eage':24 },
+        {'eid': '11', 'ename':'kohn', 'eemail': 'kohn@examle.com', 'ephone':'78563963112', 'eage':22},
+        {'eid': '12', 'ename':'John', 'eemail': 'john@exampe.com', 'ephone': '1234590444', 'eage':29},
+        {'eid': '13', 'ename':'uane', 'eemail': 'uane@exaple.com', 'ephone': '9874321025', 'eage':26},
+        {'eid': '14', 'ename': 'Joi', 'eemail': 'joi@example.com', 'ephone': '8527419622', 'eage':23},
+        {'eid': '15', 'ename': 'Jav', 'eemail': 'jav@example.com', 'ephone': '8627419322', 'eage':21},
+        {'eid': '16', 'ename': 'ton', 'eemail': 'ton@example.com', 'ephone': '8527419265', 'eage':24},        
+        {'eid': '17', 'ename': 'Non', 'eemail': 'non@example.com', 'ephone': '8741963722', 'eage':25},
+        {'eid': '18', 'ename': 'Oon', 'eemail': 'oon@example.com', 'ephone': '8527419633', 'eage':29},
+        {'eid': '19', 'ename': 'pan', 'eemail': 'pan@example.com', 'ephone': '8967532255', 'eage':28},
+        {'eid': '20', 'ename': 'lan', 'eemail': 'lan@example.com', 'ephone': '2526753225', 'eage':27},
      ]
     employees_to_create = [Employee(**data) for data in employee]
     print ('Employees to create', employees_to_create)
