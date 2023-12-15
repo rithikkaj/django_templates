@@ -35,15 +35,14 @@ class EmployeeUploadView(View):
     def post(self, request):
         user = request.user  # get the current login user details
         paramFile = io.TextIOWrapper(request.FILES['employeefile'].file)
+        print(paramFile)
         portfolio1 = csv.DictReader(paramFile)
+        print(portfolio1)
         list_of_dict = list(portfolio1)
+        print(list_of_dict)
         objs = [
             Employee(
-                eid=row['eid'],
-                ename=row['ename'],
-                email=row['email'],
-                ephone=row['ephone'],
-                eage=row['eage']
+                **row
             )
             for row in list_of_dict
         ]
